@@ -107,14 +107,14 @@ Value setcodewasmcontracttx(const Array& params, bool fHelp)
 
    RPCTypeCheck(params, list_of(str_type)(str_type)(str_type)(str_type)(int_type)(str_type)(int_type));
 
-   std::cout << "wasmsetcodecontracttx line103" 
-             << " sender:" << params[0].get_str() 
-             << " contract:"<< params[1].get_str()
-             << " code:"<< params[2].get_str()
-             << " abi:"<< params[3].get_str()
-             << " fee:"<< params[4].get_uint64()
-             << " memo:"<< params[5].get_str()
-             << " \n";
+   // std::cout << "wasmsetcodecontracttx line103" 
+   //           << " sender:" << params[0].get_str() 
+   //           << " contract:"<< params[1].get_str()
+   //           << " code:"<< params[2].get_str()
+   //           << " abi:"<< params[3].get_str()
+   //           << " fee:"<< params[4].get_uint64()
+   //           << " memo:"<< params[5].get_str()
+   //           << " \n";
 
     string code, abi;
     string codeFile = GetAbsolutePath(params[2].get_str()).string();

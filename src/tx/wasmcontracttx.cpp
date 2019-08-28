@@ -116,39 +116,36 @@ bool CWasmContractTx::CheckTx(int nHeight, CCacheWrapper &cw, CValidationState &
 // }
 
 bool CWasmContractTx::ExecuteTx(int nHeight, int nIndex, CCacheWrapper &cache, CValidationState &state) {
-    
-    //
 
     CInlineTransaction trx;
     trx.contract = contract;
     trx.action = action;
     trx.data = data;
 
-   // std::cout << "CWasmContractTx ExecuteTx" 
-   //           << " contract:"<< wasm::name(trx.contract).to_string()
-   //           << " action:"<< wasm::name(trx.action).to_string()
-   //           // << " data:"<< params[3].get_str()
-   //           << " \n";
+    // std::cout << "CWasmContractTx ExecuteTx" 
+    //           << " contract:"<< wasm::name(trx.contract).to_string()
+    //           << " action:"<< wasm::name(trx.action).to_string()
+    //           // << " data:"<< params[3].get_str()
+    //           << " \n";
 
     wasm::transaction_trace trx_trace;
     trx_trace.trx_id = GetHash();
     //trx_trace.block_height = nHeight;
-    // trx_trace.block_time = 
+    //trx_trace.block_time = 
 
     try {
-        trx_trace->traces.emplace_back();
-        DispatchInlineTransaction( trx_trace->traces.back(), trx, trx.contract, cache, state, 0 );
+        //trx_trace.traces.emplace_back();
+        DispatchInlineTransaction( trx_trace.trace, trx, trx.contract, cache, state, 0 );
     } catch( CException& e ) {
        return state.DoS(100, ERRORMSG(e.errMsg.data()), e.errCode, e.errMsg);
     }
 
-    //save trace
-
+    //cache.save(trace)
     return true;
 }
 
 void CWasmContractTx::DispatchInlineTransaction( wasm::inline_transaction_trace& trace, 
-                                                 const CInlineTransaction& trx, 
+                                                 wasm::CInlineTransaction& trx, 
                                                  uint64_t receiver, 
                                                  CCacheWrapper& cache, 
                                                  CValidationState& state,
@@ -193,11 +190,6 @@ string CWasmContractTx::ToString(CAccountDBCache &view) {
     CKeyID senderKeyId;
     view.GetKeyId(txUid, senderKeyId);
 
-
-    // return strprintf("hash=%s, txType=%s, version=%d, contract=%s, action=%d, data=%d, senderuserid=%s, senderkeyid=%s, fee=%ld, nValidHeight=%d\n",
-    //                  GetTxType(nTxType), GetHash().ToString(), nVersion, contract, wasm::name(action).to_string, data, txUid.ToString(), senderKeyId.GetHex(), llFees,
-    //                  nValidHeight);
-
     return strprintf("hash=%s, txType=%s, version=%d, contract=%s, senderuserid=%s, senderkeyid=%s, fee=%ld, nValidHeight=%d\n",
                      GetTxType(nTxType), GetHash().ToString(), nVersion, contract, txUid.ToString(), senderKeyId.GetHex(), llFees,
                      nValidHeight);
@@ -214,8 +206,8 @@ Object CWasmContractTx::ToJson(const CAccountDBCache &view) const{
     object.push_back(Pair("tx_type", GetTxType(nTxType)));
     object.push_back(Pair("version", nVersion));
     object.push_back(Pair("contract", contract));
-    //object.push_back(Pair("action", std::name(action).to_string));
-    //object.push_back(Pair("data", data));
+    object.push_back(Pair("action", wasm::name(action).to_string()));
+    object.push_back(Pair("data", HexStr(data)));
     //object.push_back(Pair("regId", txUid.get<CRegID>().ToString()));
     //object.push_back(Pair("addr", senderKeyId.ToAddress()));
     //object.push_back(Pair("script", "script_content"));

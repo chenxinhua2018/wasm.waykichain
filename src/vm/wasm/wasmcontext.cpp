@@ -3,6 +3,7 @@
 #include "wasm/wasmnativecontract.hpp"
 #include "wasm/exceptions.hpp"
 #include "wasm/types/name.hpp"
+#include "wasm/wasmconfig.hpp"
 
 using namespace std;
 using namespace wasm;
@@ -55,25 +56,25 @@ void CWasmContext::Execute(inline_transaction_trace& trace){
       ExecuteOne(trace);
 
       //receipt for accounts in notified
-      for(uint32_t i = 1; i < wasmContext.notified.size(); ++i){
-          receiver = wasmContext.notified[i];
+      for(uint32_t i = 1; i < notified.size(); ++i){
+          receiver = notified[i];
           trace.inline_traces.emplace_back();
           ExecuteOne(trace.inline_traces.back());
       }
 
       WASM_ASSERT( recurse_depth < wasm::max_inline_action_depth,
-                  transaction_exception, "max inline action depth per transaction reached" );
+                  TRANSACTION_EXCEPTION,"transaction_exception", "max inline action depth per transaction reached" );
 
-      for( const auto& inline_trx : inline_transactions ) {
+      for( auto& inline_trx : inline_transactions ) {
           trace.inline_traces.emplace_back();
-          control_trx.DispatchInlineTransaction( trace.inline_traces.back(), inline_trx, inline_trx.account, true, cache, state, recurse_depth + 1 );
+          control_trx.DispatchInlineTransaction( trace.inline_traces.back(), inline_trx, inline_trx.contract, cache, state, recurse_depth + 1 );
       }    
 
 }
 
 void CWasmContext::ExecuteOne( inline_transaction_trace& trace ){
 
-    trace.trx = trx
+    trace.trx = trx;
     trace.receiver = receiver;
 
     auto native = FindNativeHandle(receiver, trx.action);

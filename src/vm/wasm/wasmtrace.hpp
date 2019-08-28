@@ -14,7 +14,7 @@ namespace wasm {
   };
 
   struct inline_transaction_trace : public base_trace {
-    vector<base_trace> inline_traces; 
+    vector<inline_transaction_trace> inline_traces; 
   };
 
 
@@ -23,7 +23,7 @@ namespace wasm {
      //uint32_t block_height;
      //uint32_t block_time;   
 
-     inline_transaction_trace traces;
+     inline_transaction_trace trace;
   };
 
   

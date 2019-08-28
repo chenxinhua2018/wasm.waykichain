@@ -258,7 +258,7 @@ namespace wasm {
          } 
       }
 
-      WASM_THROW( INVALID_TYPE_INSIDE_ABI, "INVALID_TYPE_INSIDE_ABI", "Unknown %s", field.data()) ;
+      WASM_THROW( INVALID_TYPE_INSIDE_ABI, "INVALID_TYPE_INSIDE_ABI", "missing %s", field.data()) ;
 
       json_spirit::Value var;
       return var;

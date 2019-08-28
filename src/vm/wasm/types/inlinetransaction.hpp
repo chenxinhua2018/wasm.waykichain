@@ -9,8 +9,9 @@
 
 using namespace std;
 
+namespace wasm
+{
 
-//max_inline_action_depth
 class CInlineTransaction {
 
 public:
@@ -60,3 +61,5 @@ public:
       } 
 
 };
+
+}//wasm

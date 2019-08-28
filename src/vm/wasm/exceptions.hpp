@@ -16,6 +16,7 @@ static const uint8_t UNSUPPORTED_ABI_VERSION_EXCEPTION = 0x74;
 static const uint8_t INVALID_TYPE_INSIDE_ABI = 0x75;
 static const uint8_t DUPLICATE_ABI_DEF_EXCEPTION = 0x76;
 static const uint8_t ABI_CIRCULAR_DEF_EXCEPTION = 0x77;
+static const uint8_t TRANSACTION_EXCEPTION = 0x78;
 
 
 class CException

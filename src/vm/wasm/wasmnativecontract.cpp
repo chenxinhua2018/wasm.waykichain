@@ -13,12 +13,12 @@ namespace wasm {
 void WasmNativeSetcode(CWasmContext& context) {
 
     CAccount sender;
-    WASM_ASSERT(context.cache.accountCache.GetAccount(context.controlTx.txUid, sender), UPDATE_ACCOUNT_FAIL, "bad-read-accountdb",
-       "wasmnativecontract.Setcode, sender account does not exist, sender Id = %s",context.controlTx.txUid.ToString().data())
+    WASM_ASSERT(context.cache.accountCache.GetAccount(context.control_trx.txUid, sender), UPDATE_ACCOUNT_FAIL, "bad-read-accountdb",
+       "wasmnativecontract.Setcode, sender account does not exist, sender Id = %s",context.control_trx.txUid.ToString().data())
 
 
-    WASM_ASSERT(sender.OperateBalance(SYMB::WICC, BalanceOpType::SUB_FREE, context.controlTx.llFees), UPDATE_ACCOUNT_FAIL, "operate-account-failed",
-       "wasmnativecontract.Setcode, operate account failed ,regId=%s", context.controlTx.txUid.ToString().data())
+    WASM_ASSERT(sender.OperateBalance(SYMB::WICC, BalanceOpType::SUB_FREE, context.control_trx.llFees), UPDATE_ACCOUNT_FAIL, "operate-account-failed",
+       "wasmnativecontract.Setcode, operate account failed ,regId=%s", context.control_trx.txUid.ToString().data())
 
 
     WASM_ASSERT(context.cache.accountCache.SetAccount(CUserID(sender.keyid), sender), UPDATE_ACCOUNT_FAIL, "bad-save-accountdb",
@@ -55,7 +55,7 @@ void WasmNativeSetcode(CWasmContext& context) {
          // << " data:"<< params[3].get_str()
          << " \n";
 
-    //context.controlTx.nRunStep = contract.GetContractSize();
+    //context.control_trx.nRunStep = contract.GetContractSize();
     //if (!SaveTxAddresses(height, index, cw, state, {txUid})) return false;
 }
 

@@ -78,8 +78,10 @@ public:
     vector<uint8_t> GetCode(uint64_t account);
     void RegisterNativeHandler(uint64_t receiver, uint64_t action, nativeHandler v);
     nativeHandler* FindNativeHandle(uint64_t receiver, uint64_t action);
-    void ExecuteOne();
+    void ExecuteOne( inline_transaction_trace& trace );
     void Initialize();
+    void Execute( inline_transaction_trace& trace );
+
 
 public:
     void ExecuteInline(CInlineTransaction t);

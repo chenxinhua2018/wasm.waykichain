@@ -50,7 +50,9 @@ WASM_CPPFLAGS = -std=c++17 -I$(VM_PATH) \
                            -I$(WASM_VM_INCLUDE) \
                            -I$(WASM_OUTCOME_DIR) \
                            -I$(WASM_COMPILER_BUILTINS) \
-                           -I$(WASM_BERKELEY_SOFTFLOAT)             
+                           -I$(WASM_BERKELEY_SOFTFLOAT) 
+
+AM_CPPFLAGS +=   -I$(VM_PATH)                                    
 
 config/build.h: FORCE
 	@$(top_srcdir)/share/genbuild.sh $(abs_top_builddir)/src/config/build.h $(abs_top_srcdir)
@@ -254,7 +256,9 @@ WASM_H = \
   vm/wasm/wasmcontext.hpp \
   vm/wasm/wasmnativecontract.hpp \
   vm/wasm/abi_def.hpp \
-  vm/wasm/abi_serializer.hpp
+  vm/wasm/abi_serializer.hpp \
+  vm/wasm/wasmtrace.hpp \
+  vm/wasm/wasmconfig.hpp 
 
 WASM_CPP = \
   vm/wasm/wasmcontext.cpp \

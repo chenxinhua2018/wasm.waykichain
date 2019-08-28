@@ -2,6 +2,7 @@
 #define TX_WASM_CONTRACT_TX_H
 
 #include "tx.h"
+#include "wasm/types/inlinetransaction.hpp"
 #include "wasm/wasmtrace.hpp"
 
 class CWasmContractTx : public CBaseTx {
@@ -59,11 +60,11 @@ public:
 
 public:
     void DispatchInlineTransaction( wasm::inline_transaction_trace& trace, 
-                                                 const CInlineTransaction& trx, 
-                                                 uint64_t receiver, 
-                                                 CCacheWrapper &cache, 
-                                                 CValidationState &state,
-                                                 uint32_t recurse_depth);
+                                    wasm::CInlineTransaction& trx, 
+                                     uint64_t receiver, 
+                                     CCacheWrapper &cache, 
+                                     CValidationState &state,
+                                     uint32_t recurse_depth);
     
 };
 
