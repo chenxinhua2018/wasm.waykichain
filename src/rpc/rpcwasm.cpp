@@ -291,15 +291,14 @@ Value setcodewasmcontracttx(const Array& params, bool fHelp)
 Value callwasmcontracttx(const Array& params, bool fHelp) {
     if (fHelp || params.size() < 5 || params.size() > 6) {
         throw runtime_error(
-            "callcontracttx \"sender addr\" \"app regid\" \"arguments\" \"amount\" \"fee\" (\"height\")\n"
-            "\ncreate contract invocation transaction\n"
-            "\nArguments:\n"
+            "callwasmcontracttx \"sender addr\" \"contract\" \"action\" \"data\" \"amount\" \"fee\" (\"height\")\n"
             "1.\"sender addr\": (string, required) tx sender's base58 addr\n"
-            "2.\"app regid\":   (string, required) contract RegId\n"
-            "3.\"arguments\":   (string, required) contract arguments (Hex encode required)\n"
-            "4.\"amount\":      (numeric, required) amount of WICC to be sent to the contract account\n"
-            "5.\"fee\":         (numeric, required) pay to miner\n"
-            "6.\"height\":      (numberic, optional) valid height\n"
+            "2.\"contract\":   (string, required) contract name\n"
+            "3.\"action\":   (string, required) action name\n"
+            "4.\"data\":   (json string, required) action data\n"
+            "5.\"amount\":      (numeric, required) amount of WICC to be sent to the contract account\n"
+            "6.\"fee\":         (numeric, required) pay to miner\n"
+            "7.\"height\":      (numberic, optional) valid height\n"
             "\nResult:\n"
             "\"txid\":        (string)\n"
             "\nExamples:\n" +
@@ -319,7 +318,7 @@ Value callwasmcontracttx(const Array& params, bool fHelp) {
 
     RPCTypeCheck(params, list_of(str_type)(str_type)(str_type)(obj_type)(int_type)(int_type));
 
-    std::cout << "callwasmcontracttx line103" 
+    std::cout << "rpccal lwasmcontracttx line320" 
          << " sender:" << params[0].get_str() 
          << " contract:"<< params[1].get_str()
          << " action:"<< params[2].get_str()

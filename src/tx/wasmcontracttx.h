@@ -10,6 +10,7 @@ public:
     uint64_t contract;
     uint64_t action;
     std::vector<char> data;
+    //vector<inlinetransaction> actions;
 
     uint64_t amount;
     TokenSymbol symbol;
