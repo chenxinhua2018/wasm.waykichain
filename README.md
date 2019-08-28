@@ -1,25 +1,21 @@
-WaykiChain - Decentralized Application & Ecosystem Enabler
-=====================================
 
-## :: What is WaykiChain
+## :: set wasm code and abi
 
-WaykiChain grows out of bitcoin and ethereum technology and has adopted DPOS consensus algorithm for engergy saving and superior performance compared to POW etc. simliar algorithms. WaykiChain not only supports WICC mastercoin value transfer but also supports Turing-Complete Smart Contract capability that enables token issuance and all sorts of value-driven activities. With WaykiChain blockchain technology, ecosystem partners can build the most powerful and trustworthy guessing games, exchanges of digital assets like market pegged assets, user issued assets and many other applications and services only limited by imagination.
+curl -u wiccuser:123456 -d '{"jsonrpc":"2.0","id":"curltext","method":"setcodewasmcontracttx","params":["wLKf2NqwtHk3BfzK5wMDfbKYN1SC3weyR4","0-1","/home/xiaoyu/src/token.wasm","/home/xiaoyu/src/token.abi",11000000000000,"token"]}' -H 'content-type:application/json;' http://127.0.0.1:6968
 
-## :: Where is WaykiChain heading
+You can get the token.wasm and token.abi in wasm.cdt/samples
 
-WaykiChain continues to evolve and break things that don't work. In coming months, WaykiChain will be way stronger in many fronts:
-* ease of development and deployment
-* higher throughput
-* security and robustness
+## :: create token
 
-WaykiChain will keep abreast of the latest blockchain technologies and take no hesitation in innovating herself for the long term success of the ecosystem.
+curl -u wiccuser:123456 -d '{"jsonrpc":"2.0","id":"curltext","method":"callwasmcontracttx","params":["wLKf2NqwtHk3BfzK5wMDfbKYN1SC3weyR4","0-1","create",{"issuer":"walker","maximum_supply":"100000.0000 BTC"},1000000,11000000000000]}' -H 'content-type:application/json;' http://127.0.0.1:6968
 
-## :: The team behind WaykiChain
+## :: issue 
 
-We are a team of technology enthusiasts, dream catchers and dragon trainers (as we believe WaykiChain to us is like Night Fury in "How To Train Your Dragon" movie)! We firmly believe in what we do and take steady steps in building the best blockchain for the target industries and ecosystems. 
+curl -u wiccuser:123456 -d '{"jsonrpc":"2.0","id":"curltext","method":"callwasmcontracttx","params":["wLKf2NqwtHk3BfzK5wMDfbKYN1SC3weyR4","0-1","issue",{"to":"xiaoyu","quantity":"800.0000 BTC","memo":"issue to xiaoyu"},1000000,11000000000000]}' -H 'content-type:application/json;' http://127.0.0.1:6968
 
-Please feel free to contanct us (coredev at waykichainhk dot com) and provide us with your feedbacks that can make WaykiChain better for ecosystem partners and participants.
+## :: transfer
 
+curl -u wiccuser:123456 -d '{"jsonrpc":"2.0","id":"curltext","method":"callwasmcontracttx","params":["wLKf2NqwtHk3BfzK5wMDfbKYN1SC3weyR4","0-1","transfer",{"from":"xiaoyu","to":"walker","quantity":"100.0000 BTC","memo":"transfer to walker"},1000000,11000000000000]}' -H 'content-type:application/json;' http://127.0.0.1:6968
 
 
 
